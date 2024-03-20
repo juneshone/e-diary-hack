@@ -6,6 +6,18 @@ from datacenter.models import (Schoolkid,
                                Commendation)
 
 
+COMMENDABLE_TEXT = [
+    'Молодец!',
+    'Очень хороший ответ!',
+    'Так держать!',
+    'Ты на верном пути!',
+    'С каждым разом у тебя получается всё лучше!',
+    'Я вижу, как ты стараешься!',
+    'Ты растешь над собой!',
+    'Ты многое сделал, я это вижу!'
+]
+
+
 def get_schoolkid(child_name):
     try:
         return Schoolkid.objects.get(full_name__contains=child_name)
@@ -26,23 +38,13 @@ def remove_chastisements(schoolkid):
 
 def create_commendation(schoolkid, subject):
     try:
-        text = random.choice([
-            'Молодец!',
-            'Очень хороший ответ!',
-            'Так держать!',
-            'Ты на верном пути!',
-            'С каждым разом у тебя получается всё лучше!',
-            'Я вижу, как ты стараешься!',
-            'Ты растешь над собой!',
-            'Ты многое сделал, я это вижу!'
-        ])
         lesson = Lesson.objects.filter(
             year_of_study=schoolkid.year_of_study,
             group_letter=schoolkid.group_letter,
             subject__title=subject
         ).order_by('-date').first()
         Commendation.objects.create(
-            text=text,
+            text=random.choice(COMMENDABLE_TEXT),
             created=lesson.date,
             schoolkid=schoolkid,
             subject=lesson.subject,
