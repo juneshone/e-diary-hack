@@ -37,12 +37,12 @@ def remove_chastisements(schoolkid):
 
 
 def create_commendation(schoolkid, subject):
-    try:
-        lesson = Lesson.objects.filter(
-            year_of_study=schoolkid.year_of_study,
-            group_letter=schoolkid.group_letter,
-            subject__title=subject
-        ).order_by('-date').first()
+    lesson = Lesson.objects.filter(
+        year_of_study=schoolkid.year_of_study,
+        group_letter=schoolkid.group_letter,
+        subject__title=subject
+    ).order_by('-date').first()
+    if lesson:
         Commendation.objects.create(
             text=random.choice(COMMENDABLE_TEXT),
             created=lesson.date,
@@ -50,5 +50,5 @@ def create_commendation(schoolkid, subject):
             subject=lesson.subject,
             teacher=lesson.teacher
         )
-    except ObjectDoesNotExist:
+    else:
         print('Предмет не найден. Проверьте название.')
