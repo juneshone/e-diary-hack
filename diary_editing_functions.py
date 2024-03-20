@@ -4,15 +4,14 @@ from datacenter.models import (Schoolkid,
                                Chastisement,
                                Lesson,
                                Commendation)
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
 def get_schoolkid(child_name):
     try:
         return Schoolkid.objects.get(full_name__contains=child_name)
-    except ObjectDoesNotExist:
+    except Schoolkid.DoesNotExist:
         print('Ученик с таким именем не найден. Проверьте имя.')
-    except MultipleObjectsReturned:
+    except Schoolkid.MultipleObjectsReturned:
         print('Найдено несколько учеников с таким именем. Уточните имя.')
 
 

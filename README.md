@@ -28,12 +28,11 @@ python manage.py shell
 schoolkid = get_schoolkid(child_name)
 ```
 
-При редактировании БД внутри shell импортируйте модели БД, модуль `random` и исключения:
+При редактировании БД внутри shell импортируйте модели БД и модуль `random`:
 
 ```python
 from datacenter.models import Schoolkid, Mark, Chastisement, Lesson, Commendation
 import random
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 ```
 
 Для исправления оценок с 2 и 3 на 5 используйте функцию:
